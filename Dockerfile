@@ -27,6 +27,13 @@ ENV RAILS_ENV="production" \
     BUNDLE_WITHOUT="development" \
     LD_PRELOAD="/usr/local/lib/libjemalloc.so"
 
+FROM base AS development
+ENV RAILS_ENV="development" \
+    BUNDLE_DEPLOYMENT="false" \
+    BUNDLE_WITHOUT=""
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y build-essential git libpq-dev libyaml-dev pkg-config
+
 # Throw-away build stage to reduce size of final image
 FROM base AS build
 
