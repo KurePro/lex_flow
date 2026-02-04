@@ -1,9 +1,11 @@
 services:
   web:
-    build: .
+    build:
+      context: .
+      target: development
     volumes:
       - .:/lex_flow
-      - bundle_data:/lex_flow/vendor/bundle
+      - bundle_data:/usr/local/bundle
     ports:
       - "3000:3000"
     depends_on:
@@ -13,6 +15,8 @@ services:
     environment:
       TZ: Asia/Tokyo
       RAILS_ENV: development
+      BUNDLE_DEPLOYMENT: "false"
+      BUNDLE_WITHOUT: ""
     command: ["bin/dev"]
 
   db:
